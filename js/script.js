@@ -96,8 +96,9 @@ addPagination(data);
 function showSearch(){
     const newArray = data.filter(n => {
          const fname = n.name.first.toUpperCase();
+         const lname = n.name.last.toUpperCase();
          const userInput = input.value.toUpperCase();
-         return fname.includes(userInput); 
+         return fname.includes(userInput) || lname.includes(userInput); 
    })
      
    showPage(newArray, 1);
