@@ -23,6 +23,11 @@ function showPage(list, page){
    const endIndex = page * 9;
    const studentList = document.querySelector('.student-list');
    studentList.innerHTML = '';
+
+   if(list.length === 0){
+      const div = `<div class="no-results">No result found</div>`;
+      studentList.insertAdjacentHTML('beforeend', div);
+   }
    
    for(let i = 0; i < list.length; i++){
       const studentData = list[i];
@@ -43,7 +48,7 @@ function showPage(list, page){
          </div>
        </li>`
            studentList.insertAdjacentHTML('beforeend', studentItem);
-      }   
+      } 
    }
    return list;
 }
@@ -77,12 +82,10 @@ function addPagination(list){
      if(activeButton){
         activeButton.classList.remove('active');
      }
-     button.className = "active";
-      
+     button.className = "active";  
      showPage(list, button.textContent);
    }
    return list;
-
 })
 }
 
@@ -91,15 +94,14 @@ addPagination(data);
 
 // function to display Search Items;
 function showSearch(){
-   let newArray = data.filter(n => {
-      const fname = n.name.first.toUpperCase()
-      const userInput = input.value.toUpperCase();
-      return fname.includes(userInput);
-      
+    const newArray = data.filter(n => {
+         const fname = n.name.first.toUpperCase();
+         const userInput = input.value.toUpperCase();
+         return fname.includes(userInput); 
    })
+     
    showPage(newArray, 1);
    addPagination(newArray)
-
 }
 
 input.addEventListener('keyup', showSearch)
